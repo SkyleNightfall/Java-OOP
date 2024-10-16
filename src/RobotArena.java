@@ -33,7 +33,7 @@ public class RobotArena {
         int yVal = randomGenerator.nextInt(this.yAxis);
 
         if (this.manyRobots.size() != 0) {
-            while (isHere(xVal,yVal)) {
+            while (getRobotAt(xVal,yVal) != null) {
                 xVal = randomGenerator.nextInt(this.xAxis);
                 yVal = randomGenerator.nextInt(this.yAxis);
             }
@@ -42,19 +42,14 @@ public class RobotArena {
         this.manyRobots.add(new Robot(xVal,yVal));
     }
 
-    public boolean isHere(int sx, int sy) {
-        return getRobotAt(sx,sy) != null;
-    }
-
     public Robot getRobotAt(int x, int y) {
 
         for (Robot r : this.manyRobots) {
-            if (r.getXPos() == x && r.getYPos() == y) {
+            if (r.isHere(x,y)) {
                 return r;
             }
         }
         return null;
-
     }
 
     public String toString() {
@@ -63,7 +58,7 @@ public class RobotArena {
             the ArrayList to print out the details of each robot inside     */
         String fin = "Arena " + this.ArenaNum + " is an Arena that is " + this.xAxis + " by "
                 + this.yAxis + " characters with " + this.manyRobots.size() + " robots. \n";
-        for (Robot b : this.manyRobots) fin += b.toString() + "\n";
+        for (Robot b : this.manyRobots) fin = fin + b.toString() + "\n";
 
         return fin;
     }

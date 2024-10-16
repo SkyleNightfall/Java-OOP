@@ -23,6 +23,10 @@ public class Robot {
         return id;
     }
 
+    public boolean isHere(int sx, int sy) {
+        return (sx == this.xPos && sy == this.yPos);
+    }
+
     public String toString() {
         return "Robot " + this.id + " is at position (" + this.xPos + ", " +
                 this.yPos + ").";
@@ -33,9 +37,9 @@ public class Robot {
         Robot d2 = new Robot(3,6);
         Robot d3 = new Robot(1,10);
 
-        System.out.println(d1.toString());
-        System.out.println(d2.toString());
-        System.out.println(d3.toString());
+        System.out.println(d1);
+        System.out.println(d2);
+        System.out.println(d3);
     }
 
 }
