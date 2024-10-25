@@ -27,6 +27,10 @@ public class Robot {
         return (sx == this.xPos && sy == this.yPos);
     }
 
+    public void displayRobot (ConsoleCanvas c) {
+        c.showIt(this.xPos, this.yPos,'R');
+    }
+
     public String toString() {
         return "Robot " + this.id + " is at position (" + this.xPos + ", " +
                 this.yPos + ").";

@@ -52,6 +52,10 @@ public class RobotArena {
         return null;
     }
 
+    public void showRobots(ConsoleCanvas c) {
+        for (Robot r : this.manyRobots) r.displayRobot(c);
+    }
+
     public String toString() {
 
         /*  creates a string with base information about the Arena, then loops through

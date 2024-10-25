@@ -4,6 +4,7 @@ public class RobotInterface {
 
     private Scanner s;
     private RobotArena curArena;
+    private ConsoleCanvas canvas;
 
     public RobotInterface() {
         s = new Scanner(System.in);
@@ -12,7 +13,8 @@ public class RobotInterface {
         char ch = ' ';
         do {
 
-            System.out.print("Enter (A)dd Robot, Get (I)nformation, or E(x)it  >> ");
+            System.out.print("Enter (A)dd Robot, Get (I)nformation, (D)isplay" +
+                    " Arena, or E(x)it  >> ");
             ch = s.nextLine().charAt(0);
             switch (ch) {
                 case 'A' :
@@ -23,6 +25,10 @@ public class RobotInterface {
                 case 'i' :
                     System.out.println("\n" + curArena.toString());
                     break;
+                case 'd' :
+                case 'D' :
+                    doDisplay();
+                    break;
                 case 'x' :
                     ch = 'X';
                     break;
@@ -32,6 +38,12 @@ public class RobotInterface {
 
         s.close();
 
+    }
+
+    public void doDisplay() {
+        this.canvas = new ConsoleCanvas(curArena.getXAxis(), curArena.getYAxis(), "YS015995");
+        this.curArena.showRobots(canvas);
+        System.out.println(this.canvas.toString());
     }
 
     public static void main(String[] args) {
