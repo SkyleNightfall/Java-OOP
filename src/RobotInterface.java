@@ -14,7 +14,7 @@ public class RobotInterface {
         do {
 
             System.out.print("Enter (A)dd Robot, Get (I)nformation, (D)isplay" +
-                    " Arena, or E(x)it  >> ");
+                    " Arena, (M)ove all Robots, or E(x)it  >> ");
             ch = s.nextLine().charAt(0);
             switch (ch) {
                 case 'A' :
@@ -27,6 +27,11 @@ public class RobotInterface {
                     break;
                 case 'd' :
                 case 'D' :
+                    doDisplay();
+                    break;
+                case 'M' :
+                case 'm' :
+                    curArena.moveAllRobots();
                     doDisplay();
                     break;
                 case 'x' :

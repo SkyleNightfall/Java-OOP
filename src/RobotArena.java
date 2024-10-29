@@ -39,7 +39,12 @@ public class RobotArena {
             }
         }
 
-        this.manyRobots.add(new Robot(xVal,yVal));
+        this.manyRobots.add(new Robot(xVal, yVal, randomDirection()));
+    }
+
+    public Robot.Direction randomDirection() {
+        Robot.Direction[] directions = Robot.Direction.values();
+        return Robot.Direction.values()[randomGenerator.nextInt(directions.length)];
     }
 
     public Robot getRobotAt(int x, int y) {
@@ -50,6 +55,21 @@ public class RobotArena {
             }
         }
         return null;
+    }
+
+    public boolean canMoveHere(int xPos, int yPos) {
+        if (xPos >= 0 && xPos < this.xAxis) {
+            if (yPos >= 0 && yPos < this.yAxis) {
+                if (getRobotAt(xPos,yPos) == null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void moveAllRobots() {
+        for (Robot r : this.manyRobots) r.tryToMove(this);
     }
 
     public void showRobots(ConsoleCanvas c) {
