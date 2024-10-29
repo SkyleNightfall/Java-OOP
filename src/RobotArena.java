@@ -43,12 +43,10 @@ public class RobotArena {
     }
 
     public Robot.Direction randomDirection() {
-        Robot.Direction[] directions = Robot.Direction.values();
-        return Robot.Direction.values()[randomGenerator.nextInt(directions.length)];
+        return Robot.Direction.values()[randomGenerator.nextInt(4)];
     }
 
     public Robot getRobotAt(int x, int y) {
-
         for (Robot r : this.manyRobots) {
             if (r.isHere(x,y)) {
                 return r;

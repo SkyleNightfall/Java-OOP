@@ -6,23 +6,23 @@ public class ConsoleCanvas {
     private String stuID;
 
     public ConsoleCanvas(int x, int y, String ID) {
-        this.xAxis = x;
-        this.yAxis = y;
-        Arena = new String[this.yAxis+2][this.xAxis+2];
+        this.xAxis = x+2;
+        this.yAxis = y+2;
+        Arena = new String[this.yAxis][this.xAxis];
         this.stuID = ID;
 
         //create the border of the arena
-        for (int i = 1; i < this.xAxis+1; i++) {
+        for (int i = 1; i < this.xAxis-1; i++) {
             this.Arena[0][i] = "#";
-            this.Arena[this.yAxis+1][i] = "#";
+            this.Arena[this.yAxis-1][i] = "#";
         }
-        for (int i = 0; i < this.yAxis + 2; i++) {
+        for (int i = 0; i < this.yAxis; i++) {
             this.Arena[i][0] = "#";
-            this.Arena[i][this.xAxis+1] = "#";
+            this.Arena[i][this.xAxis-1] = "#";
         }
 
         //insert the Student ID onto the top of the border
-        int temp = ((this.xAxis+ 2) - stuID.length())/2;
+        int temp = ((this.xAxis) - stuID.length())/2;
         for (int i = 0; i < stuID.length(); i++) {
             this.Arena[0][temp + i] = "" + stuID.charAt(i);
         }
@@ -40,8 +40,8 @@ public class ConsoleCanvas {
 
         String fin = "";
 
-        for (int i = 0; i < this.yAxis+2; i++) {
-            for (int j = 0; j < this.xAxis+2; j++) {
+        for (int i = 0; i < this.yAxis; i++) {
+            for (int j = 0; j < this.xAxis; j++) {
                 String cur = this.Arena[i][j];
                 if (cur != null) {
                     fin += cur;

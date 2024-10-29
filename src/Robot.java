@@ -63,9 +63,8 @@ public class Robot {
             case NORTH: return Direction.EAST;
             case EAST: return Direction.SOUTH;
             case SOUTH: return Direction.WEST;
-            case WEST: return Direction.NORTH;
+            default: return Direction.NORTH;
         }
-        return null;
     }
 
     public String toString() {
