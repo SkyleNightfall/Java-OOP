@@ -9,43 +9,71 @@ public class RobotInterface {
 
     public RobotInterface() {
         s = new Scanner(System.in);
-        curArena = new RobotArena(20,6);
 
         char ch = ' ';
         do {
 
-            System.out.print("Enter (A)dd Robot, Get (I)nformation, (D)isplay" +
-                    " Arena, (M)ove all Robots, (S)imulate the Robots, or E(x)it  >> ");
+            System.out.print("Enter (N)ew Arena, (S)ave Arena, (L)oad Arena, (A)dd Robot, Get" +
+                    " (I)nformation, (D)isplay Arena, (M)ove all Robots, Simulate all (R)obots," +
+                    " or E(x)it  >> ");
+
             ch = s.nextLine().charAt(0);
             switch (ch) {
-                case 'A' :
-                case 'a' :
-                    curArena.addRobot();
-                    break;
-                case 'I' :
-                case 'i' :
-                    System.out.println("\n" + curArena.toString());
-                    break;
-                case 'd' :
-                case 'D' :
-                    doDisplay();
-                    break;
-                case 'M' :
-                case 'm' :
-                    simulate(1);
+                case 'N' :
+                case 'n' :
+                    System.out.print("\nEnter the size of the X-Axis >> ");
+                    int x = s.nextInt();
+                    System.out.print("Enter the size of the Y-Axis >> ");
+                    int y = s.nextInt();
+                    curArena = new RobotArena(x,y);
+                    s = new Scanner(System.in);
+                    System.out.print("\n");
                     break;
                 case 'S' :
                 case 's' :
-                    simulate(10);
+                    save();
+                    break;
+                case 'L' :
+                case 'l' :
+                    load();
+                    break;
+                case 'A' :
+                case 'a' :
+                    if (arenaStatus()) {
+                        curArena.addRobot();
+                    }
+                    break;
+                case 'I' :
+                case 'i' :
+                    if (arenaStatus()) {
+                        System.out.println("\n" + curArena);
+                    }
+                    break;
+                case 'd' :
+                case 'D' :
+                    if (arenaStatus()) {
+                        doDisplay();
+                    }
+                    break;
+                case 'M' :
+                case 'm' :
+                    if (arenaStatus()) {
+                        simulate(1);
+                    }
+                    break;
+                case 'R' :
+                case 'r' :
+                    if (arenaStatus()) {
+                        simulate(10);
+                    }
                     break;
                 case 'x' :
                     ch = 'X';
                     break;
                 default :
-                    System.out.println("Invalid Input. Please Try Again.");
+                    System.out.println("\nInvalid Input. Please Try Again.\n");
                     break;
             }
-
         } while (ch != 'X');
 
         s.close();
@@ -55,7 +83,7 @@ public class RobotInterface {
     public void doDisplay() {
         this.canvas = new ConsoleCanvas(curArena.getXAxis(), curArena.getYAxis(), "YS015995");
         this.curArena.showRobots(canvas);
-        System.out.println(this.canvas.toString());
+        System.out.println("\n" + this.canvas);
     }
 
     public void simulate (int times) {
@@ -68,6 +96,23 @@ public class RobotInterface {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean arenaStatus() {
+        if (this.curArena == null) {
+            System.out.println("\nPlease Create or Load a Arena.\n");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void save() {
+
+    }
+
+    public void load() {
+
     }
 
     public static void main(String[] args) {

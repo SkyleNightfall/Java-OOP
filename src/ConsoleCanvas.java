@@ -29,11 +29,7 @@ public class ConsoleCanvas {
     }
 
     public void showIt(int x, int y, char robot) {
-        this.Arena[y+1][x+1] = "" + robot;
-    }
-
-    public void removeIt(int x, int y) {
-        this.Arena[y+1][x+1] = "";
+        this.Arena[y + 1][x + 1] = "" + robot;
     }
 
     public String toString() {
