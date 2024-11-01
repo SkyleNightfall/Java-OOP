@@ -1,3 +1,6 @@
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +13,7 @@ public class RobotInterface {
     public RobotInterface() {
         s = new Scanner(System.in);
 
-        char ch = ' ';
+        char ch;
         do {
 
             System.out.print("Enter (N)ew Arena, (S)ave Arena, (L)oad Arena, (A)dd Robot, Get" +
@@ -31,11 +34,34 @@ public class RobotInterface {
                     break;
                 case 'S' :
                 case 's' :
-                    save();
+                    if (arenaStatus()) {
+                        System.out.print("Please name your file >> ");
+                        String name = s.nextLine();
+                        save(name);
+                        s = new Scanner(System.in);
+                    }
                     break;
                 case 'L' :
                 case 'l' :
-                    load();
+                    try {
+                        JFileChooser fileChooser = new JFileChooser();
+                        fileChooser.setMultiSelectionEnabled(true);
+                        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files",
+                                "txt");
+                        fileChooser.setFileFilter(filter);
+
+                        int result = fileChooser.showOpenDialog(null);
+
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            File[] selected = fileChooser.getSelectedFiles();
+                            load(selected[0]);
+                        } else {
+                            System.out.println("\nInvalid Selection. Resetting.\n");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    s = new Scanner(System.in);
                     break;
                 case 'A' :
                 case 'a' :
@@ -107,12 +133,62 @@ public class RobotInterface {
         }
     }
 
-    public void save() {
+    public void save(String fileN) {
+        try {
+            FileOutputStream saving = new FileOutputStream(new File(fileN + ".txt"));
+
+            String data = curArena.getXAxis() + ", " + curArena.getYAxis() + "\n";
+            saving.write(data.getBytes());
+
+            for (Robot r : curArena.manyRobots) {
+                data = r.getXPos() + ", " + r.getYPos() + ", " + r.getDirection() + "\n";
+                saving.write(data.getBytes());
+            }
+
+            saving.flush();
+            saving.close();
+
+            System.out.println();
+
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
 
     }
 
-    public void load() {
+    public void load(File fileN) {
+        try {
+            Scanner fileScan = new Scanner(fileN);
 
+            if (!fileScan.hasNextLine()) {
+                System.out.println("Data is missing. Something went wrong. Resetting.");
+            } else {
+                String cur = fileScan.nextLine();
+                String[] curA = cur.split(", ");
+                this.curArena = new RobotArena(Integer.parseInt(curA[0]), Integer.parseInt(curA[1]));
+
+                while (fileScan.hasNext()) {
+                    cur = fileScan.nextLine();
+                    curA = cur.split(", ");
+                    this.curArena.addRobot(Integer.parseInt(curA[0]), Integer.parseInt(curA[1]),
+                            stringToDir(curA[2]));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("File was not found. Resetting to Menu.");
+        }
+    }
+
+    public Robot.Direction stringToDir(String dir) {
+        if (dir.equals("NORTH")) {
+            return Robot.Direction.NORTH;
+        } else if (dir.equals("EAST")) {
+            return Robot.Direction.EAST;
+        } else if (dir.equals("SOUTH")) {
+            return Robot.Direction.SOUTH;
+        } else {
+            return Robot.Direction.WEST;
+        }
     }
 
     public static void main(String[] args) {

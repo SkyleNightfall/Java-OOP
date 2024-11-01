@@ -32,14 +32,16 @@ public class RobotArena {
         int xVal = randomGenerator.nextInt(this.xAxis);
         int yVal = randomGenerator.nextInt(this.yAxis);
 
-        if (this.manyRobots.size() != 0) {
-            while (getRobotAt(xVal,yVal) != null) {
-                xVal = randomGenerator.nextInt(this.xAxis);
-                yVal = randomGenerator.nextInt(this.yAxis);
-            }
-        }
+        do {
+            xVal = randomGenerator.nextInt(this.xAxis);
+            yVal = randomGenerator.nextInt(this.yAxis);
+        } while (getRobotAt(xVal,yVal) != null);
 
         this.manyRobots.add(new Robot(xVal, yVal, randomDirection()));
+    }
+
+    public void addRobot(int xVal, int yVal, Robot.Direction direction) {
+        this.manyRobots.add(new Robot(xVal, yVal, direction));
     }
 
     public Robot.Direction randomDirection() {
@@ -92,7 +94,7 @@ public class RobotArena {
         a.addRobot();
         a.addRobot();
         a.addRobot();
-        System.out.println(a.toString());
+        System.out.println(a);
     }
 
 }
