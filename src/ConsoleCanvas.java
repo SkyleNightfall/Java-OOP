@@ -1,11 +1,19 @@
 public class ConsoleCanvas {
 
+    //initializes all variables needed for ConsoleCanvas
     private int xAxis;
     private int yAxis;
     private String[][] Arena;
     private String stuID;
 
+    /**
+     * Function to initialize ConsoleCanvas
+     * @param x     width of the Arena being displayed
+     * @param y     height of the Arena being displayed
+     * @param ID    student ID being placed within the border
+     */
     public ConsoleCanvas(int x, int y, String ID) {
+        //adjusting the arena to contain the border and assign values to the variables
         this.xAxis = x+2;
         this.yAxis = y+2;
         Arena = new String[this.yAxis][this.xAxis];
@@ -28,19 +36,27 @@ public class ConsoleCanvas {
         }
     }
 
+    /**
+     * Function to display robots within the canvas
+     * @param x     x coordinate of the displayed robot
+     * @param y     y coordinate of the displayed robot
+     * @param robot     character representing the displayed robot
+     */
     public void showIt(int x, int y, char robot) {
         this.Arena[y + 1][x + 1] = "" + robot;
     }
 
+    /**
+     * Function to print out the entirety of the canvas
+     */
     public String toString() {
 
         String fin = "";
 
         for (int i = 0; i < this.yAxis; i++) {
             for (int j = 0; j < this.xAxis; j++) {
-                String cur = this.Arena[i][j];
-                if (cur != null) {
-                    fin += cur;
+                if (this.Arena[i][j] != null) {
+                    fin += this.Arena[i][j];
                 } else {
                     fin += " ";
                 }
@@ -49,12 +65,6 @@ public class ConsoleCanvas {
         }
 
         return fin;
-    }
-
-    public static void main(String[] args) {
-        ConsoleCanvas c = new ConsoleCanvas(20,5,"YS015995");
-        c.showIt(4,3,'R');
-        System.out.println(c.toString());
     }
 
 }

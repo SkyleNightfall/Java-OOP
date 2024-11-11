@@ -1,5 +1,6 @@
 20, 6
-0, 5, NORTH
-0, 1, NORTH
-8, 0, EAST
-19, 5, SOUTH
+12, 5, WEST
+7, 5, WEST
+7, 0, EAST
+18, 0, EAST
+16, 0, EAST
